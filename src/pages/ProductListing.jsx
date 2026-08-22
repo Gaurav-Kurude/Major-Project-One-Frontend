@@ -4,26 +4,26 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 function ProductListing() {
-
   const [products, setProducts] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [rating, setRating] = useState(0);
   const [sortPrice, setSortPrice] = useState("");
 
-    useEffect(() => {
+  useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch(
-          "http://localhost:5000/"
-        );products
+        const response = await fetch("http://localhost:5000/products");
 
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
 
         const data = await response.json();
-         console.log(data);
+        console.log(data);
         setProducts(data);
+
+        // console.log("API data:", data);
+        // console.log("Is Array:", Array.isArray(data));
       } catch (error) {
         console.log(error);
       }
@@ -58,19 +58,21 @@ function ProductListing() {
     return categoryMatch && ratingMatch;
   });
 
-    const sortedProducts = [...filteredProducts].sort(
-    (a, b) => {
-      if (sortPrice === "lowToHigh") {
-        return a.price - b.price;
-      }
-
-      if (sortPrice === "highToLow") {
-        return b.price - a.price;
-      }
-
-      return 0;
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortPrice === "lowToHigh") {
+      return a.productPrice - b.productPrice;
     }
-  );
+
+    if (sortPrice === "highToLow") {
+      return b.productPrice - a.productPrice;
+    }
+
+    return 0;
+  });
+
+  // console.log("products:", products);
+  // console.log("filteredProducts:", filteredProducts);
+  // console.log("sortedProducts:", sortedProducts);
 
   return (
     <>
@@ -92,7 +94,22 @@ function ProductListing() {
                   <input
                     type="checkbox"
                     className="form-check-input"
+                    id="womens"
+                    checked={selectedCategories.includes("Women's Clothing")}
+                    onChange={() => handleCategoryChange("Women's Clothing")}
+                  />
+
+                  <label className="form-check-label" htmlFor="womens">
+                    Women's Clothing
+                  </label>
+                </div>
+                
+                <div className="form-check">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
                     id="mens"
+                    checked={selectedCategories.includes("Mens Clothing")}
                     onChange={() => handleCategoryChange("Mens Clothing")}
                   />
 
@@ -101,16 +118,46 @@ function ProductListing() {
                   </label>
                 </div>
 
+
                 <div className="form-check">
                   <input
                     type="checkbox"
                     className="form-check-input"
-                    id="womens"
-                    onChange={() => handleCategoryChange("Women's Clothing")}
+                    id="kids"
+                    checked={selectedCategories.includes("Kid's Clothing")}
+                    onChange={() => handleCategoryChange("Kid's Clothing")}
                   />
 
-                  <label className="form-check-label" htmlFor="womens">
-                    Women's Clothing
+                  <label className="form-check-label" htmlFor="kids">
+                    Kid's Clothing
+                  </label>
+                </div>
+
+                <div className="form-check">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="electronics"
+                    checked={selectedCategories.includes("Electronics")}
+                    onChange={() => handleCategoryChange("Electronics")}
+                  />
+
+                  <label className="form-check-label" htmlFor="electronics">
+                    Electronics
+                  </label>
+                </div>
+
+                <div className="form-check">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="home"
+                    checked={selectedCategories.includes("Home")}
+                    onChange={() => handleCategoryChange("Home")}
+                  />
+
+                  <label className="form-check-label" htmlFor="home">
+                    Home
                   </label>
                 </div>
 

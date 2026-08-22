@@ -1,3 +1,5 @@
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
@@ -9,14 +11,20 @@ function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
 
-  function increaseCount(){
-    setCount((count)=> count + 1);
+  function increaseCount() {
+    setCount((count) => count + 1);
+    toast.success("Quantity increased!");
   }
 
-  function decreaseCount(){
-    setCount((count)=> count -1);
+  function decreaseCount() {
+    if (count > 1) {
+      setCount((count) => count - 1);
+      toast.info("Quantity decreased!");
+    } else {
+      toast.warning("Quantity cannot be less than 1");
+    }
   }
 
   useEffect(() => {
@@ -77,7 +85,12 @@ function ProductDetails() {
 
             <p>⭐ {product.productRating}</p>
 
-            <p><span className="fw-medium">Quantity: </span><button onClick={decreaseCount}>-</button><span className="mx-2">{count}</span><button onClick={increaseCount}>+</button></p>
+            <p>
+              <span className="fw-medium me-3">Quantity:</span>
+              <button className="btn btn-outline-secondary" onClick={decreaseCount}>-</button>
+              <span className="mx-2">{count}</span>
+              <button className="btn btn-outline-secondary" onClick={increaseCount}>+</button>
+            </p>
 
             <p>{product.productDescription}</p>
 
@@ -90,6 +103,7 @@ function ProductDetails() {
         </div>
       </div>
       <Footer />
+      <ToastContainer position="top-right" autoClose={2000} />
     </>
   );
 }

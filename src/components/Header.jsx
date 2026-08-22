@@ -15,12 +15,10 @@ function Header() {
               aria-label="Search"
             />
           </form>
-
-          <button className="btn btn-secondary" type="submit">
-            Login
-          </button>
-          <p>⁠🤍</p>
-          <p>🛒</p>
+          <div className="d-flex align-items-center gap-3">
+            <p className="mb-0">🤍</p>
+            <p className="mb-0">🛒</p>
+          </div>
         </div>
       </nav>
     </>
