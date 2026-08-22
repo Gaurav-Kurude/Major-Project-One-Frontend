@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import ProductListing from "./pages/ProductListing";
 import ProductDetails from "./pages/ProductDetails";
+import Wishlist from "./pages/Wishlist";
 import "./App.css";
 
 function App() {
@@ -17,7 +18,9 @@ function App() {
       <Route path="/products/:id"
       element={<ProductDetails />}
       />
+      <Route path="/wishlist" element={<Wishlist />} />
     </Routes>
+    
   );
 }
 

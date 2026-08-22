@@ -57,6 +57,32 @@ function ProductDetails() {
     return <p className="text-center mt-4">{error}</p>;
   }
 
+  function addToWishlist() {
+  const existingWishlist =
+    JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  const alreadyExists = existingWishlist.some(
+    (item) => item._id === product._id
+  );
+
+  if (alreadyExists) {
+    toast.info("Product is already in wishlist!");
+    return;
+  }
+
+  const updatedWishlist = [
+    ...existingWishlist,
+    product,
+  ];
+
+  localStorage.setItem(
+    "wishlist",
+    JSON.stringify(updatedWishlist)
+  );
+
+  toast.success("Product added to wishlist!");
+}
+
   return (
     <>
       <Header />
@@ -96,14 +122,14 @@ function ProductDetails() {
 
             <button className="btn btn-primary">Add to Cart</button>
 
-            <button className="btn btn-outline-secondary ms-2">
+            <button onClick={addToWishlist} className="btn btn-outline-secondary ms-2">
               ♡ Wishlist
             </button>
           </div>
         </div>
       </div>
       <Footer />
-      <ToastContainer position="top-right" autoClose={2000} />
+      <ToastContainer position="top-right" autoClose={1500} />
     </>
   );
 }

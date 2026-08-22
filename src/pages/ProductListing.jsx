@@ -1,6 +1,8 @@
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 function ProductListing() {
@@ -19,7 +21,7 @@ function ProductListing() {
         }
 
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setProducts(data);
 
         // console.log("API data:", data);
@@ -74,6 +76,27 @@ function ProductListing() {
   // console.log("filteredProducts:", filteredProducts);
   // console.log("sortedProducts:", sortedProducts);
 
+  function addToWishlist(product) {
+    const existingWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    const alreadyExists = existingWishlist.some(
+      (item) => item._id === product._id,
+    );
+
+    if (alreadyExists) {
+      toast.info("Product is already in wishlist!");
+      return;
+    }
+
+    const updatedWishlist = [...existingWishlist, product];
+
+    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+
+     window.dispatchEvent(new Event("wishlistUpdated"));
+
+    toast.success("Product added to wishlist!");
+  }
+
   return (
     <>
       <Header />
@@ -103,7 +126,7 @@ function ProductListing() {
                     Women's Clothing
                   </label>
                 </div>
-                
+
                 <div className="form-check">
                   <input
                     type="checkbox"
@@ -117,7 +140,6 @@ function ProductListing() {
                     Men's Clothing
                   </label>
                 </div>
-
 
                 <div className="form-check">
                   <input
@@ -247,7 +269,10 @@ function ProductListing() {
                           Add to Cart
                         </button>
 
-                        <button className="btn btn-outline-secondary w-100">
+                        <button
+                          onClick={() => addToWishlist(product)}
+                          className="btn btn-outline-secondary w-100"
+                        >
                           ♡ Add to Wishlist
                         </button>
                       </div>
@@ -260,6 +285,7 @@ function ProductListing() {
         </div>
       </main>
       <Footer />
+      <ToastContainer position="top-right" autoClose={2000} />
     </>
   );
 }
