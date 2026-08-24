@@ -10,7 +10,7 @@ function OrderHistory() {
     async function fetchOrders() {
       try {
         const response = await fetch(
-          "http://localhost:5000/orders"
+          "https://vercel.com/gaurav-kurude/major-project-one/69dESUaESmttAsqcka9VoCXY3dHp/orders"
         );
 
         if (!response.ok) {
