@@ -17,7 +17,7 @@ function ProductListing() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch("https://major-project-one-brown.vercel.app//products");
+        const response = await fetch("https://major-project-one-brown.vercel.app/products");
 
         if (!response.ok) {
           throw new Error("Failed to fetch products");
