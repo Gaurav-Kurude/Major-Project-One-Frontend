@@ -71,7 +71,7 @@ function Header() {
             to="/wishlist"
             className="text-decoration-none position-relative fs-4"
           >
-            <img src="/heart.png" alt="heart" width="35" height="35" className="me-2" />
+            <img src="/heart.png" alt="heart" width="32" height="32" className="me-2" />
             {wishlistCount > 0 && (
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {wishlistCount}
@@ -83,7 +83,7 @@ function Header() {
             to="/cart"
             className="text-decoration-none position-relative fs-4"
           >
-            🛒
+            <img src="/cart.png" alt="cart" width="32" height="32" className="me-2" />
             {cartCount > 0 && (
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {cartCount}
