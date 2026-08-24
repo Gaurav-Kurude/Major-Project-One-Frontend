@@ -20,31 +20,31 @@ function Header() {
 
   useEffect(() => {
     function updateWishlistCount() {
-      const wishlist =
-        JSON.parse(localStorage.getItem("wishlist")) || [];
+      const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
       setWishlistCount(wishlist.length);
     }
 
     updateWishlistCount();
 
-    window.addEventListener(
-      "wishlistUpdated",
-      updateWishlistCount
-    );
+    window.addEventListener("wishlistUpdated", updateWishlistCount);
 
     return () => {
-      window.removeEventListener(
-        "wishlistUpdated",
-        updateWishlistCount
-      );
+      window.removeEventListener("wishlistUpdated", updateWishlistCount);
     };
   }, []);
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container">
-        <Link className="navbar-brand" to="/">
+        <Link to="/" className="navbar-brand d-flex align-items-center">
+          <img
+            src="/shopping-bags.png"
+            alt="Shopping bag"
+            width="35"
+            height="35"
+            className="me-2"
+          />
           MyShoppingSite
         </Link>
 
@@ -72,7 +72,6 @@ function Header() {
             className="text-decoration-none position-relative fs-4"
           >
             🤍
-
             {wishlistCount > 0 && (
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {wishlistCount}
@@ -85,7 +84,6 @@ function Header() {
             className="text-decoration-none position-relative fs-4"
           >
             🛒
-
             {cartCount > 0 && (
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {cartCount}
