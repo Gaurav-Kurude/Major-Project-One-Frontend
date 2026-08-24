@@ -80,6 +80,8 @@ function ProductDetails() {
     JSON.stringify(updatedWishlist)
   );
 
+  window.dispatchEvent(new Event("wishlistUpdated"));
+
   toast.success("Product added to wishlist!");
 }
 

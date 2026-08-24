@@ -26,6 +26,8 @@ function Wishlist() {
       JSON.stringify(updatedWishlist)
     );
 
+    window.dispatchEvent(new Event("wishlistUpdated"));
+
     toast.info("Product removed from wishlist!");
   }
 

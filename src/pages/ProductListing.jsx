@@ -2,7 +2,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import { useParams, Link, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 function ProductListing() {
@@ -10,6 +10,9 @@ function ProductListing() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [rating, setRating] = useState(0);
   const [sortPrice, setSortPrice] = useState("");
+
+  const [searchParams] = useSearchParams();
+  const searchTerm = searchParams.get("search") || "";
 
   useEffect(() => {
     async function fetchProducts() {
@@ -57,7 +60,11 @@ function ProductListing() {
 
     const ratingMatch = product.productRating >= rating;
 
-    return categoryMatch && ratingMatch;
+    const searchMatch = product.productName
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    return categoryMatch && ratingMatch && searchMatch;
   });
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -92,9 +99,46 @@ function ProductListing() {
 
     localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
 
-     window.dispatchEvent(new Event("wishlistUpdated"));
+    window.dispatchEvent(new Event("wishlistUpdated"));
 
     toast.success("Product added to wishlist!");
+  }
+
+  function addToCart(product) {
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const existingProduct = existingCart.find(
+      (item) => item._id === product._id,
+    );
+
+    let updatedCart;
+
+    if (existingProduct) {
+      updatedCart = existingCart.map((item) =>
+        item._id === product._id
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+            }
+          : item,
+      );
+
+      toast.info("Quantity increased in cart!");
+    } else {
+      updatedCart = [
+        ...existingCart,
+        {
+          ...product,
+          quantity: 1,
+        },
+      ];
+
+      toast.success("Product added to cart!");
+    }
+
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    window.dispatchEvent(new Event("cartUpdated"));
   }
 
   return (
@@ -244,42 +288,51 @@ function ProductListing() {
             </div>
 
             <div className="col-md-9">
-              <div className="row g-4">
-                {sortedProducts.map((product) => (
-                  <div className="col-md-4" key={product._id}>
-                    <div className="card h-100">
-                      <Link
-                        to={`/products/${product._id}`}
-                        className="text-decoration-none text-black"
-                      >
-                        <img
-                          src={product.productImage}
-                          className="card-img-top"
-                          alt={product.productName}
-                        />
-                      </Link>
-                      <div className="card-body">
-                        <h5 className="card-title">{product.productName}</h5>
+              {sortedProducts.length === 0 ? (
+                <div className="text-center mt-5">
+                  <h5>No products found</h5>
 
-                        <h6>₹{product.productPrice}</h6>
-
-                        <p className="mb-3">⭐ {product.productRating}</p>
-
-                        <button className="btn btn-primary w-100 mb-2">
-                          Add to Cart
-                        </button>
-
-                        <button
-                          onClick={() => addToWishlist(product)}
-                          className="btn btn-outline-secondary w-100"
+                  {searchTerm && <p>No products found for "{searchTerm}"</p>}
+                </div>
+              ) : (
+                <div className="row g-4">
+                  {sortedProducts.map((product) => (
+                    <div className="col-md-4" key={product._id}>
+                      <div className="card h-100">
+                        <Link
+                          to={`/products/${product._id}`}
+                          className="text-decoration-none text-black"
                         >
-                          ♡ Add to Wishlist
-                        </button>
+                          <img
+                            src={product.productImage}
+                            className="card-img-top"
+                            alt={product.productName}
+                          />
+                        </Link>
+
+                        <div className="card-body">
+                          <h5 className="card-title">{product.productName}</h5>
+
+                          <h6>₹{product.productPrice}</h6>
+
+                          <p className="mb-3">⭐ {product.productRating}</p>
+
+                          <button className="btn btn-primary w-100 mb-2">
+                            Add to Cart
+                          </button>
+
+                          <button
+                            className="btn btn-outline-secondary w-100"
+                            onClick={() => addToWishlist(product)}
+                          >
+                            ♡ Add to Wishlist
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
