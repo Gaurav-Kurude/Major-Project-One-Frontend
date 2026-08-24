@@ -10,7 +10,7 @@ function OrderHistory() {
     async function fetchOrders() {
       try {
         const response = await fetch(
-          "https://vercel.com/gaurav-kurude/major-project-one/69dESUaESmttAsqcka9VoCXY3dHp/orders"
+          "https://major-project-one-brown.vercel.app//orders"
         );
 
         if (!response.ok) {

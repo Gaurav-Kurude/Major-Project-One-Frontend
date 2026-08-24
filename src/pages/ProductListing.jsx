@@ -17,7 +17,7 @@ function ProductListing() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch("https://vercel.com/gaurav-kurude/major-project-one/69dESUaESmttAsqcka9VoCXY3dHp/products");
+        const response = await fetch("https://major-project-one-brown.vercel.app//products");
 
         if (!response.ok) {
           throw new Error("Failed to fetch products");
