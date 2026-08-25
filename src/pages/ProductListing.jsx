@@ -17,7 +17,7 @@ function ProductListing() {
   const searchTerm = searchParams.get("search") || "";
 
   const categoryMap = {
-    "mens-clothing": "Mens Clothing",
+    "men's-clothing": "Men's Clothing",
     "women's-clothing": "Women's Clothing",
     "kid's-clothing": "Kid's Clothing",
     electronics: "Electronics",
@@ -78,15 +78,13 @@ function ProductListing() {
   const filteredProducts = products.filter((product) => {
     const categoryMatch =
       selectedCategories.length === 0 ||
-      selectedCategories.includes(product.productCategory);
+      selectedCategories.some((category) =>
+        product.productCategory.includes(category),
+      );
 
     const ratingMatch = product.productRating >= rating;
 
-    const searchMatch = product.productName
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    return categoryMatch && ratingMatch && searchMatch;
+    return categoryMatch && ratingMatch;
   });
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
