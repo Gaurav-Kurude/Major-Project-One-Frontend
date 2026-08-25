@@ -67,10 +67,10 @@ function Home() {
           </div>
           <div className="row">
             <div className="mt-3 col-md-6">
-              <img src="https://placehold.co/500X400" alt="Image" />
+              <img width={500} height={400} src="https://plus.unsplash.com/premium_photo-1683141052679-942eb9e77760?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c2hvcHBpbmclMjBpbWFnZXMlMjAxMDcwJTIweCUyMDQwMHxlbnwwfHwwfHx8MA%3D%3D" alt="Image" />
             </div>
             <div className="mt-3 col-md-6">
-              <img src="https://placehold.co/500X400" alt="Image" />
+              <img width={500} height={400} src="https://images.unsplash.com/photo-1573855619003-97b4799dcd8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c2hvcHBpbmclMjBpbWFnZXMlMjAxMDcwJTIweCUyMDQwMHxlbnwwfHwwfHx8MA%3D%3D" alt="Image" />
             </div>
           </div>
         </div>
