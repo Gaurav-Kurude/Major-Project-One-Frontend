@@ -11,10 +11,28 @@ function ProductListing() {
   const [rating, setRating] = useState(0);
   const [sortPrice, setSortPrice] = useState("");
 
+  const { category } = useParams();
 
   const [searchParams] = useSearchParams();
   const searchTerm = searchParams.get("search") || "";
 
+  const categoryMap = {
+    "mens-clothing": "Mens Clothing",
+    "women's-clothing": "Women's Clothing",
+    "kid's-clothing": "Kid's Clothing",
+    electronics: "Electronics",
+    home: "Home",
+  };
+
+  useEffect(() => {
+    if (category) {
+      const selectedCategory = categoryMap[category];
+
+      if (selectedCategory) {
+        setSelectedCategories([selectedCategory]);
+      }
+    }
+  }, [category]);
 
   useEffect(() => {
     async function fetchProducts() {
