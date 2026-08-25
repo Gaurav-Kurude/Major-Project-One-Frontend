@@ -63,7 +63,7 @@ function Home() {
         </div>
         <div className="container">
           <div className="mt-3">
-            <img width={1070} height={400} src="https://images.unsplash.com/photo-1760565030309-8a56664f8901?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDN8fHNob3BwaW5nJTIwaW1hZ2VzJTIwMTA3MCUyMHglMjA0MDB8ZW58MHx8MHx8fDA%3D" alt="Image" />
+            <img width={1070} height={400} src="https://plus.unsplash.com/premium_photo-1677995700941-100976883af7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTd8fHNob3BwaW5nJTIwaW1hZ2VzJTIwMTA3MCUyMHglMjA0MDB8ZW58MHx8MHx8fDA%3D" alt="Image" />
           </div>
           <div className="row">
             <div className="mt-3 col-md-6">
