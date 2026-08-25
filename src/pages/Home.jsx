@@ -63,7 +63,7 @@ function Home() {
         </div>
         <div className="container">
           <div className="mt-3">
-            <img src="https://placehold.co/1070X400" alt="Image" />
+            <img src="https://media.istockphoto.com/id/1213535077/photo/happy-family-shopping-for-groceries-at-the-supermarket.webp?a=1&b=1&s=612x612&w=0&k=20&c=LpbfxJ-RU2fNgYtw19-W8WYJLHQdXkzfqty44QooZQE=" alt="Image" />
           </div>
           <div className="row">
             <div className="mt-3 col-md-6">
