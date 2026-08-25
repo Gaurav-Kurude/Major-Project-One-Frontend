@@ -13,22 +13,22 @@ function Home() {
     {
       id: 2,
       name: "Women's Clothing",
-      image: "https://placehold.co/300X200",
+      image: "https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHdvbWVucyUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D",
     },
     {
       id: 3,
       name: "Kids",
-      image: "https://placehold.co/300X200",
+      image: "https://images.unsplash.com/photo-1760287363879-6012adab292c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDd8fGtpZHMlMjBmYXNoaW9ufGVufDB8fDB8fHww",
     },
     {
       id: 4,
       name: "Electronics",
-      image: "https://placehold.co/300X200",
+      image: "https://www.vecteezy.com/photo/84168702-a-variety-of-electronic-devices-including-a-remote-control-a-cassette-player-a-coffee-cup-and-a",
     },
     {
       id: 5,
       name: "Home",
-      image: "https://placehold.co/300X200",
+      image: "https://www.vecteezy.com/photo/83286455-different-household-appliances-on-table-against-beige-background",
     },
   ];
   return (
