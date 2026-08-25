@@ -7,28 +7,33 @@ function Home() {
   const categories = [
     {
       id: 1,
-      name: "Men's Clothing",
+      name: "Men",
       image: "https://media.istockphoto.com/id/2271184986/photo/row-of-men-shirts-and-jackets-in-a-store.webp?a=1&b=1&s=612x612&w=0&k=20&c=dhub1ABwHo9j3iTTyCUifC5NE-e7TVh-pzD9O82hJd8=",
+      categoryValue: "Mens Clothing"
     },
     {
       id: 2,
-      name: "Women's Clothing",
+      name: "Women",
       image: "https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHdvbWVucyUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D",
+      categoryValue: "Women's Clothing"
     },
     {
       id: 3,
       name: "Kids",
       image: "https://images.unsplash.com/photo-1760287363879-6012adab292c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDd8fGtpZHMlMjBmYXNoaW9ufGVufDB8fDB8fHww",
+       categoryValue: "Kid's Clothing",
     },
     {
       id: 4,
       name: "Electronics",
       image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGVsZWN0cm9uaWNzfGVufDB8fDB8fHww",
+      categoryValue: "Electronics",
     },
     {
       id: 5,
       name: "Home",
       image: "https://media.istockphoto.com/id/1345589509/photo/household-appliances-different-appliances-on-counter-in-the-kitchen.webp?a=1&b=1&s=612x612&w=0&k=20&c=10s7IcFuwuZHlIX-8GQS_US4APMd2QrcY2PN2IBYYt0=",
+      categoryValue: "Home",
     },
   ];
   return (
@@ -40,7 +45,7 @@ function Home() {
             {categories.map((category) => (
               <div className="col" key={category.id}>
                 <Link
-                  to={`/products/category/${category.name
+                  to={`/products/category/${category.categoryValue
                     .toLowerCase()
                     .replaceAll(" ", "-")}`}
                   className="text-decoration-none"
