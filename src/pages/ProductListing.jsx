@@ -196,8 +196,8 @@ function ProductListing() {
                     type="checkbox"
                     className="form-check-input"
                     id="mens"
-                    checked={selectedCategories.includes("Mens Clothing")}
-                    onChange={() => handleCategoryChange("Mens Clothing")}
+                    checked={selectedCategories.includes("Men's Clothing")}
+                    onChange={() => handleCategoryChange("Men's Clothing")}
                   />
 
                   <label className="form-check-label" htmlFor="mens">
