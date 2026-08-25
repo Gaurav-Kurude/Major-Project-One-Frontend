@@ -36,9 +36,9 @@ function Home() {
       <Header />
       <main>
         <div className="container mt-3">
-          <div className="row gx-2">
+          <div className="row g-3">
             {categories.map((category) => (
-              <div className="col-md-2 mb-2 " key={category.id}>
+              <div className="col" key={category.id}>
                 <Link
                   to={`/products/category/${category.name
                     .toLowerCase()
