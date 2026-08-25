@@ -73,7 +73,7 @@ function Header() {
             height="35"
             className="me-2"
           />
-          MyShoppingSite
+          MyCart
         </Link>
 
         <form

@@ -8,7 +8,7 @@ function Home() {
     {
       id: 1,
       name: "Men's Clothing",
-      image: "https://placehold.co/300X200",
+      image: "https://media.istockphoto.com/id/2271184986/photo/row-of-men-shirts-and-jackets-in-a-store.webp?a=1&b=1&s=612x612&w=0&k=20&c=dhub1ABwHo9j3iTTyCUifC5NE-e7TVh-pzD9O82hJd8=",
     },
     {
       id: 2,
