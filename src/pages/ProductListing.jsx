@@ -17,7 +17,9 @@ function ProductListing() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch("https://major-project-one-brown.vercel.app/products");
+        const response = await fetch(
+          "https://major-project-one-brown.vercel.app/products",
+        );
 
         if (!response.ok) {
           throw new Error("Failed to fetch products");
@@ -317,7 +319,10 @@ function ProductListing() {
 
                           <p className="mb-3">⭐ {product.productRating}</p>
 
-                          <button className="btn btn-primary w-100 mb-2">
+                          <button
+                            className="btn btn-primary w-100 mb-2"
+                            onClick={() => addToCart(product)}
+                          >
                             Add to Cart
                           </button>
 
