@@ -34,6 +34,34 @@ function Header() {
     };
   }, []);
 
+  useEffect(() => {
+  function updateCartCount() {
+    const cart =
+      JSON.parse(localStorage.getItem("cart")) || [];
+
+    const totalQuantity = cart.reduce(
+      (total, item) => total + (item.quantity || 1),
+      0
+    );
+
+    setCartCount(totalQuantity);
+  }
+
+  updateCartCount();
+
+  window.addEventListener(
+    "cartUpdated",
+    updateCartCount
+  );
+
+  return () => {
+    window.removeEventListener(
+      "cartUpdated",
+      updateCartCount
+    );
+  };
+}, []);
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container">
