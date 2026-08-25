@@ -23,12 +23,12 @@ function Home() {
     {
       id: 4,
       name: "Electronics",
-      image: "https://www.vecteezy.com/photo/84168702-a-variety-of-electronic-devices-including-a-remote-control-a-cassette-player-a-coffee-cup-and-a",
+      image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGVsZWN0cm9uaWNzfGVufDB8fDB8fHww",
     },
     {
       id: 5,
       name: "Home",
-      image: "https://www.vecteezy.com/photo/83286455-different-household-appliances-on-table-against-beige-background",
+      image: "https://media.istockphoto.com/id/1345589509/photo/household-appliances-different-appliances-on-counter-in-the-kitchen.webp?a=1&b=1&s=612x612&w=0&k=20&c=10s7IcFuwuZHlIX-8GQS_US4APMd2QrcY2PN2IBYYt0=",
     },
   ];
   return (
