@@ -106,125 +106,131 @@ function Cart() {
 
   return (
     <>
-      <Header />
+      <div className="d-flex flex-column min-vh-100">
+        <Header />
 
-      <main className="container mt-4">
-        <h2 className="mb-4">My Cart</h2>
+        <main>
+          <div className="container mt-4">
+            <h2 className="mb-4">My Cart</h2>
 
-        {cart.length === 0 ? (
-          <p className="text-center">Your cart is empty.</p>
-        ) : (
-          <div className="row">
-            {/* Cart Products */}
-            <div className="col-md-8">
-              {cart.map((product) => (
-                <div className="card mb-3" key={product._id}>
-                  <div className="row g-0">
-                    <div className="col-md-4">
-                      <img
-                        src={product.productImage}
-                        className="img-fluid rounded-start"
-                        alt={product.productName}
-                      />
-                    </div>
-
-                    <div className="col-md-8">
-                      <div className="card-body">
-                        <h5 className="card-title">{product.productName}</h5>
-
-                        <div className="d-flex align-items-center gap-2">
-                          <h6 className="mb-0">
-                            ₹
-                            {calculateFinalPrice(
-                              product.productPriceBeforeDiscount,
-                              product.productDiscount,
-                            )}
-                          </h6>
-
-                          <small className="text-decoration-line-through text-black-50">
-                            ₹{product.productPriceBeforeDiscount}
-                          </small>
+            {cart.length === 0 ? (
+              <p className="text-center">Your cart is empty.</p>
+            ) : (
+              <div className="row">
+                {/* Cart Products */}
+                <div className="col-md-8">
+                  {cart.map((product) => (
+                    <div className="card mb-3" key={product._id}>
+                      <div className="row g-0">
+                        <div className="col-md-4">
+                          <img
+                            src={product.productImage}
+                            className="img-fluid rounded-start"
+                            alt={product.productName}
+                          />
                         </div>
 
-                        <small className="text-success">
-                          {product.productDiscount}% Off
-                        </small>
+                        <div className="col-md-8">
+                          <div className="card-body">
+                            <h5 className="card-title">
+                              {product.productName}
+                            </h5>
 
-                        <p>⭐ {product.productRating}</p>
+                            <div className="d-flex align-items-center gap-2">
+                              <h6 className="mb-0">
+                                ₹
+                                {calculateFinalPrice(
+                                  product.productPriceBeforeDiscount,
+                                  product.productDiscount,
+                                )}
+                              </h6>
 
-                        {/* Quantity */}
-                        <div className="d-flex align-items-center mb-3">
-                          <span className="me-3">Quantity:</span>
+                              <small className="text-decoration-line-through text-black-50">
+                                ₹{product.productPriceBeforeDiscount}
+                              </small>
+                            </div>
 
-                          <button
-                            className="btn btn-outline-secondary"
-                            onClick={() => decreaseQuantity(product._id)}
-                          >
-                            -
-                          </button>
+                            <small className="text-success">
+                              {product.productDiscount}% Off
+                            </small>
 
-                          <span className="mx-3">{product.quantity}</span>
+                            <p>⭐ {product.productRating}</p>
 
-                          <button
-                            className="btn btn-outline-secondary"
-                            onClick={() => increaseQuantity(product._id)}
-                          >
-                            +
-                          </button>
+                            {/* Quantity */}
+                            <div className="d-flex align-items-center mb-3">
+                              <span className="me-3">Quantity:</span>
+
+                              <button
+                                className="btn btn-outline-secondary"
+                                onClick={() => decreaseQuantity(product._id)}
+                              >
+                                -
+                              </button>
+
+                              <span className="mx-3">{product.quantity}</span>
+
+                              <button
+                                className="btn btn-outline-secondary"
+                                onClick={() => increaseQuantity(product._id)}
+                              >
+                                +
+                              </button>
+                            </div>
+
+                            {/* Actions */}
+                            <button
+                              className="btn btn-outline-primary me-2"
+                              onClick={() => addToWishlist(product)}
+                            >
+                              ♡ Add to Wishlist
+                            </button>
+
+                            <button
+                              className="btn btn-outline-danger"
+                              onClick={() => removeFromCart(product._id)}
+                            >
+                              Remove
+                            </button>
+                          </div>
                         </div>
-
-                        {/* Actions */}
-                        <button
-                          className="btn btn-outline-primary me-2"
-                          onClick={() => addToWishlist(product)}
-                        >
-                          ♡ Add to Wishlist
-                        </button>
-
-                        <button
-                          className="btn btn-outline-danger"
-                          onClick={() => removeFromCart(product._id)}
-                        >
-                          Remove
-                        </button>
                       </div>
                     </div>
+                  ))}
+                </div>
+
+                {/* Price Details */}
+                <div className="col-md-4">
+                  <div className="card p-3">
+                    <h5>Price Details</h5>
+
+                    <hr />
+
+                    <div className="d-flex justify-content-between">
+                      <span>Products</span>
+                      <span>{totalItems}</span>
+                    </div>
+
+                    <div className="d-flex justify-content-between mt-2">
+                      <span>Total Price</span>
+                      <strong>₹{totalPrice}</strong>
+                    </div>
+
+                    <hr />
+
+                    <Link to="/checkout" className="btn btn-primary w-100">
+                      Checkout
+                    </Link>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {/* Price Details */}
-            <div className="col-md-4">
-              <div className="card p-3">
-                <h5>Price Details</h5>
-
-                <hr />
-
-                <div className="d-flex justify-content-between">
-                  <span>Products</span>
-                  <span>{totalItems}</span>
-                </div>
-
-                <div className="d-flex justify-content-between mt-2">
-                  <span>Total Price</span>
-                  <strong>₹{totalPrice}</strong>
-                </div>
-
-                <hr />
-
-                <Link to="/checkout" className="btn btn-primary w-100">
-                  Checkout
-                </Link>
               </div>
-            </div>
+            )}
           </div>
-        )}
-      </main>
+        </main>
 
-      <Footer />
+        <Footer />
 
-      <ToastContainer position="top-right" autoClose={2000} />
+        <ToastContainer position="top-right" autoClose={2000} />
+      </div>
     </>
   );
 }
