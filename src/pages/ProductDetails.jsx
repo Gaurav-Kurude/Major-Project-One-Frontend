@@ -12,6 +12,8 @@ function ProductDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [count, setCount] = useState(1);
+  const [priceBeforeDiscount, setPriceBeforeDiscount] = useState(0);
+  const [discountPercentage, setDiscountPercentage] = useState(0);
 
   function increaseCount() {
     setCount((count) => count + 1);
@@ -39,8 +41,10 @@ function ProductDetails() {
         }
 
         const data = await response.json();
-        console.log("Product response:", data);
+        // console.log("Product response:", data);
         setProduct(data);
+        setPriceBeforeDiscount(data.productPriceBeforeDiscount);
+        setDiscountPercentage(data.productDiscount);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -93,10 +97,7 @@ function ProductDetails() {
     };
   }
 
-  const pricing = calculatePricing(
-  product.productPriceBeforeDiscount,
-  product.productDiscount
-);
+  const pricing = calculatePricing(priceBeforeDiscount, discountPercentage);
 
   return (
     <>
@@ -122,7 +123,9 @@ function ProductDetails() {
               </p>
             </div>
 
-            <h6 className="text-black-50 mt-2 mx-1 fw-bolder">{pricing.discountPercentage}% Off</h6>
+            <h6 className="text-black-50 mt-2 mx-1 fw-bolder">
+              {pricing.discountPercentage}% Off
+            </h6>
 
             <p>⭐ {product.productRating}</p>
 
