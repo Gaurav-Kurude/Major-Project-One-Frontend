@@ -83,15 +83,26 @@ function Cart() {
     toast.success("Product added to wishlist!");
   }
 
-  // Calculate total price
-  const totalPrice = cart.reduce(
-    (total, product) => total + product.productPrice * product.quantity,
+  const totalItems = cart.reduce(
+    (total, product) => total + product.quantity,
     0,
   );
 
-  function checkout() {
-    toast.success("Checkout successful!");
+  function calculateFinalPrice(originalPrice, discountPercentage) {
+    const discountAmount = (originalPrice * discountPercentage) / 100;
+
+    return originalPrice - discountAmount;
   }
+
+  // Calculate total price
+  const totalPrice = cart.reduce((total, product) => {
+    const finalPrice = calculateFinalPrice(
+      product.productPriceBeforeDiscount,
+      product.productDiscount,
+    );
+
+    return total + finalPrice * product.quantity;
+  }, 0);
 
   return (
     <>
@@ -121,7 +132,23 @@ function Cart() {
                       <div className="card-body">
                         <h5 className="card-title">{product.productName}</h5>
 
-                        <h6>₹{product.productPrice}</h6>
+                        <div className="d-flex align-items-center gap-2">
+                          <h6 className="mb-0">
+                            ₹
+                            {calculateFinalPrice(
+                              product.productPriceBeforeDiscount,
+                              product.productDiscount,
+                            )}
+                          </h6>
+
+                          <small className="text-decoration-line-through text-black-50">
+                            ₹{product.productPriceBeforeDiscount}
+                          </small>
+                        </div>
+
+                        <small className="text-success">
+                          {product.productDiscount}% Off
+                        </small>
 
                         <p>⭐ {product.productRating}</p>
 
@@ -176,7 +203,7 @@ function Cart() {
 
                 <div className="d-flex justify-content-between">
                   <span>Products</span>
-                  <span>{cart.length}</span>
+                  <span>{totalItems}</span>
                 </div>
 
                 <div className="d-flex justify-content-between mt-2">
