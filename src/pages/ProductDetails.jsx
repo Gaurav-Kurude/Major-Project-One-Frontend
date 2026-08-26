@@ -30,7 +30,9 @@ function ProductDetails() {
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const response = await fetch(`https://major-project-one-brown.vercel.app/products/${id}`);
+        const response = await fetch(
+          `https://major-project-one-brown.vercel.app/products/${id}`,
+        );
 
         if (!response.ok) {
           throw new Error("Failed to fetch product");
@@ -58,32 +60,43 @@ function ProductDetails() {
   }
 
   function addToWishlist() {
-  const existingWishlist =
-    JSON.parse(localStorage.getItem("wishlist")) || [];
+    const existingWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
-  const alreadyExists = existingWishlist.some(
-    (item) => item._id === product._id
-  );
+    const alreadyExists = existingWishlist.some(
+      (item) => item._id === product._id,
+    );
 
-  if (alreadyExists) {
-    toast.info("Product is already in wishlist!");
-    return;
+    if (alreadyExists) {
+      toast.info("Product is already in wishlist!");
+      return;
+    }
+
+    const updatedWishlist = [...existingWishlist, product];
+
+    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+
+    window.dispatchEvent(new Event("wishlistUpdated"));
+
+    toast.success("Product added to wishlist!");
   }
 
-  const updatedWishlist = [
-    ...existingWishlist,
-    product,
-  ];
+  function calculatePricing(originalPrice, discountPercentage) {
+    const discountAmount = (originalPrice * discountPercentage) / 100;
 
-  localStorage.setItem(
-    "wishlist",
-    JSON.stringify(updatedWishlist)
-  );
+    const finalPrice = originalPrice - discountAmount;
 
-  window.dispatchEvent(new Event("wishlistUpdated"));
+    return {
+      originalPrice,
+      discountPercentage,
+      discountAmount,
+      finalPrice,
+    };
+  }
 
-  toast.success("Product added to wishlist!");
-}
+  const pricing = calculatePricing(
+  product.productPriceBeforeDiscount,
+  product.productDiscount
+);
 
   return (
     <>
@@ -102,29 +115,42 @@ function ProductDetails() {
             <h2>{product.productName}</h2>
 
             <div className="d-flex align-items-center gap-2">
-              <h4 className="mb-0">₹{product.productPrice}</h4>
+              <h4 className="mb-0">₹{pricing.finalPrice}</h4>
 
               <p className="text-decoration-line-through mb-0 text-black-50">
-                ₹{product.productPriceBeforeDiscount}
+                ₹{pricing.originalPrice}
               </p>
             </div>
 
-            <h6 className="text-black-50 mt-2 mx-1 fw-bolder">50% Off</h6>
+            <h6 className="text-black-50 mt-2 mx-1 fw-bolder">{pricing.discountPercentage}% Off</h6>
 
             <p>⭐ {product.productRating}</p>
 
             <p>
               <span className="fw-medium me-3">Quantity:</span>
-              <button className="btn btn-outline-secondary" onClick={decreaseCount}>-</button>
+              <button
+                className="btn btn-outline-secondary"
+                onClick={decreaseCount}
+              >
+                -
+              </button>
               <span className="mx-2">{count}</span>
-              <button className="btn btn-outline-secondary" onClick={increaseCount}>+</button>
+              <button
+                className="btn btn-outline-secondary"
+                onClick={increaseCount}
+              >
+                +
+              </button>
             </p>
 
             <p>{product.productDescription}</p>
 
             <button className="btn btn-primary">Add to Cart</button>
 
-            <button onClick={addToWishlist} className="btn btn-outline-secondary ms-2">
+            <button
+              onClick={addToWishlist}
+              className="btn btn-outline-secondary ms-2"
+            >
               ♡ Wishlist
             </button>
           </div>
