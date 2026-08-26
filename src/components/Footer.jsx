@@ -1,13 +1,13 @@
 function Footer() {
   return (
     <>
-      <footer className="bg-body-tertiary py-3 mt-4 ">
+      <footer className="bg-body-tertiary py-3 mt-auto">
         <div className="container">
           <p className="text-dark-50">
             Your one-stop destination for shopping clothes, electronics, home
             products and more.
           </p>
-          <p className="text-dark-50">
+          <p className="text-dark-50 mb-0">
             &copy; 2026 MyShoppingSite. All rights reserved.
           </p>
         </div>
