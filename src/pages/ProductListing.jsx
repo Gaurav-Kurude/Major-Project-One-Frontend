@@ -88,12 +88,22 @@ function ProductListing() {
   });
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
+    const priceA = calculateFinalPrice(
+      a.productPriceBeforeDiscount,
+      a.productDiscount,
+    );
+
+    const priceB = calculateFinalPrice(
+      b.productPriceBeforeDiscount,
+      b.productDiscount,
+    );
+
     if (sortPrice === "lowToHigh") {
-      return a.productPrice - b.productPrice;
+      return priceA - priceB;
     }
 
     if (sortPrice === "highToLow") {
-      return b.productPrice - a.productPrice;
+      return priceB - priceA;
     }
 
     return 0;
@@ -159,6 +169,12 @@ function ProductListing() {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
 
     window.dispatchEvent(new Event("cartUpdated"));
+  }
+
+  function calculateFinalPrice(originalPrice, discountPercentage) {
+    const discountAmount = (originalPrice * discountPercentage) / 100;
+
+    return originalPrice - discountAmount;
   }
 
   return (
@@ -333,7 +349,23 @@ function ProductListing() {
                         <div className="card-body">
                           <h5 className="card-title">{product.productName}</h5>
 
-                          <h6>₹{product.productPrice}</h6>
+                          <div className="d-flex align-items-center gap-2">
+                            <h6 className="mb-0">
+                              ₹
+                              {calculateFinalPrice(
+                                product.productPriceBeforeDiscount,
+                                product.productDiscount,
+                              )}
+                            </h6>
+
+                            <small className="text-decoration-line-through text-black-50">
+                              ₹{product.productPriceBeforeDiscount}
+                            </small>
+                          </div>
+
+                          <small className="text-success">
+                            {product.productDiscount}% Off
+                          </small>
 
                           <p className="mb-3">⭐ {product.productRating}</p>
 
