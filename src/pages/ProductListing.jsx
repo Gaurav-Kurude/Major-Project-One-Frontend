@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 
 function ProductListing() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [rating, setRating] = useState(0);
   const [sortPrice, setSortPrice] = useState("");
@@ -53,6 +54,8 @@ function ProductListing() {
         // console.log("Is Array:", Array.isArray(data));
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -324,7 +327,11 @@ function ProductListing() {
             </div>
 
             <div className="col-md-9">
-              {sortedProducts.length === 0 ? (
+              {loading ? (
+                <div className="text-center mt-5">
+                  <h4>Loading products...</h4>
+                </div>
+              ) : sortedProducts.length === 0 ? (
                 <div className="text-center mt-5">
                   <h5>No products found</h5>
 
