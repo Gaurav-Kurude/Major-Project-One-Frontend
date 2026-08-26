@@ -101,66 +101,70 @@ function ProductDetails() {
 
   return (
     <>
-      <Header />
-      <div className="container mt-4">
-        <div className="row">
-          <div className="col-md-6">
-            <img
-              src={product.productImage}
-              alt={product.productName}
-              className="img-fluid"
-            />
-          </div>
+      <div className="d-flex flex-column min-vh-100">
+        <Header />
+        <main className="flex-grow-1">
+          <div className="container mt-4">
+            <div className="row">
+              <div className="col-md-6">
+                <img
+                  src={product.productImage}
+                  alt={product.productName}
+                  className="img-fluid"
+                />
+              </div>
 
-          <div className="col-md-6">
-            <h2>{product.productName}</h2>
+              <div className="col-md-6">
+                <h2>{product.productName}</h2>
 
-            <div className="d-flex align-items-center gap-2">
-              <h4 className="mb-0">₹{pricing.finalPrice}</h4>
+                <div className="d-flex align-items-center gap-2">
+                  <h4 className="mb-0">₹{pricing.finalPrice}</h4>
 
-              <p className="text-decoration-line-through mb-0 text-black-50">
-                ₹{pricing.originalPrice}
-              </p>
+                  <p className="text-decoration-line-through mb-0 text-black-50">
+                    ₹{pricing.originalPrice}
+                  </p>
+                </div>
+
+                <h6 className="text-black-50 mt-2 mx-1 fw-bolder">
+                  {pricing.discountPercentage}% Off
+                </h6>
+
+                <p>⭐ {product.productRating}</p>
+
+                <p>
+                  <span className="fw-medium me-3">Quantity:</span>
+                  <button
+                    className="btn btn-outline-secondary"
+                    onClick={decreaseCount}
+                  >
+                    -
+                  </button>
+                  <span className="mx-2">{count}</span>
+                  <button
+                    className="btn btn-outline-secondary"
+                    onClick={increaseCount}
+                  >
+                    +
+                  </button>
+                </p>
+
+                <p>{product.productDescription}</p>
+
+                <button className="btn btn-primary">Add to Cart</button>
+
+                <button
+                  onClick={addToWishlist}
+                  className="btn btn-outline-secondary ms-2"
+                >
+                  ♡ Wishlist
+                </button>
+              </div>
             </div>
-
-            <h6 className="text-black-50 mt-2 mx-1 fw-bolder">
-              {pricing.discountPercentage}% Off
-            </h6>
-
-            <p>⭐ {product.productRating}</p>
-
-            <p>
-              <span className="fw-medium me-3">Quantity:</span>
-              <button
-                className="btn btn-outline-secondary"
-                onClick={decreaseCount}
-              >
-                -
-              </button>
-              <span className="mx-2">{count}</span>
-              <button
-                className="btn btn-outline-secondary"
-                onClick={increaseCount}
-              >
-                +
-              </button>
-            </p>
-
-            <p>{product.productDescription}</p>
-
-            <button className="btn btn-primary">Add to Cart</button>
-
-            <button
-              onClick={addToWishlist}
-              className="btn btn-outline-secondary ms-2"
-            >
-              ♡ Wishlist
-            </button>
           </div>
-        </div>
+        </main>
+        <Footer />
+        <ToastContainer position="top-right" autoClose={1500} />
       </div>
-      <Footer />
-      <ToastContainer position="top-right" autoClose={1500} />
     </>
   );
 }
