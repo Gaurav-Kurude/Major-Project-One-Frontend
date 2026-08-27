@@ -63,6 +63,43 @@ function ProductDetails() {
     return <p className="text-center mt-4">{error}</p>;
   }
 
+  function addToCart(product) {
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const existingProduct = existingCart.find(
+      (item) => item._id === product._id,
+    );
+
+    let updatedCart;
+
+    if (existingProduct) {
+      updatedCart = existingCart.map((item) =>
+        item._id === product._id
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+            }
+          : item,
+      );
+
+      toast.info("Quantity increased in cart!");
+    } else {
+      updatedCart = [
+        ...existingCart,
+        {
+          ...product,
+          quantity: 1,
+        },
+      ];
+
+      toast.success("Product added to cart!");
+    }
+
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    window.dispatchEvent(new Event("cartUpdated"));
+  }
+
   function addToWishlist() {
     const existingWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
@@ -150,7 +187,12 @@ function ProductDetails() {
 
                 <p>{product.productDescription}</p>
 
-                <button className="btn btn-primary">Add to Cart</button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => addToCart(product)}
+                >
+                  Add to Cart
+                </button>
 
                 <button
                   onClick={addToWishlist}
