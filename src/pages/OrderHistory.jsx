@@ -34,6 +34,33 @@ function OrderHistory() {
     return <p className="text-center mt-4">Loading...</p>;
   }
 
+  async function deleteOrder(orderId) {
+    try {
+      const response = await fetch(
+        `https://major-project-one-brown.vercel.app/orders/${orderId}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to delete order");
+      }
+
+      // Remove order from the current page
+      setOrders((previousOrders) =>
+        previousOrders.filter((order) => order._id !== orderId),
+      );
+
+      alert("Order removed successfully!");
+    } catch (error) {
+      console.log(error);
+      alert("Failed to remove order");
+    }
+  }
+
   return (
     <>
       <div className="d-flex flex-column min-vh-100">
@@ -48,7 +75,16 @@ function OrderHistory() {
             ) : (
               orders.map((order) => (
                 <div className="card p-4 mb-3" key={order._id}>
-                  <h5>Order ID: {order._id}</h5>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <h5>Order ID: {order._id}</h5>
+
+                    <button
+                      className="btn btn-outline-danger btn-sm"
+                      onClick={() => deleteOrder(order._id)}
+                    >
+                      Remove Order
+                    </button>
+                  </div>
 
                   <p>
                     Order Date: {new Date(order.createdAt).toLocaleDateString()}
