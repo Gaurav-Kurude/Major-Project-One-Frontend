@@ -20,8 +20,7 @@ function Address() {
 
   // Load addresses
   useEffect(() => {
-    const savedAddresses =
-      JSON.parse(localStorage.getItem("addresses")) || [];
+    const savedAddresses = JSON.parse(localStorage.getItem("addresses")) || [];
 
     setAddresses(savedAddresses);
   }, []);
@@ -39,6 +38,16 @@ function Address() {
   // Add / Update address
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (phone.length !== 10) {
+      toast.error("Phone number must be 10 digits");
+      return;
+    }
+
+    if (pincode.length !== 6) {
+      toast.error("Pincode must be 6 digits");
+      return;
+    }
 
     if (
       !formData.name ||
@@ -60,15 +69,12 @@ function Address() {
               ...address,
               ...formData,
             }
-          : address
+          : address,
       );
 
       setAddresses(updatedAddresses);
 
-      localStorage.setItem(
-        "addresses",
-        JSON.stringify(updatedAddresses)
-      );
+      localStorage.setItem("addresses", JSON.stringify(updatedAddresses));
 
       toast.success("Address updated!");
 
@@ -81,17 +87,11 @@ function Address() {
         selected: false,
       };
 
-      const updatedAddresses = [
-        ...addresses,
-        newAddress,
-      ];
+      const updatedAddresses = [...addresses, newAddress];
 
       setAddresses(updatedAddresses);
 
-      localStorage.setItem(
-        "addresses",
-        JSON.stringify(updatedAddresses)
-      );
+      localStorage.setItem("addresses", JSON.stringify(updatedAddresses));
 
       toast.success("Address added!");
     }
@@ -123,16 +123,11 @@ function Address() {
 
   // Delete address
   function deleteAddress(id) {
-    const updatedAddresses = addresses.filter(
-      (address) => address.id !== id
-    );
+    const updatedAddresses = addresses.filter((address) => address.id !== id);
 
     setAddresses(updatedAddresses);
 
-    localStorage.setItem(
-      "addresses",
-      JSON.stringify(updatedAddresses)
-    );
+    localStorage.setItem("addresses", JSON.stringify(updatedAddresses));
 
     toast.info("Address deleted!");
   }
@@ -146,10 +141,7 @@ function Address() {
 
     setAddresses(updatedAddresses);
 
-    localStorage.setItem(
-      "addresses",
-      JSON.stringify(updatedAddresses)
-    );
+    localStorage.setItem("addresses", JSON.stringify(updatedAddresses));
 
     toast.success("Delivery address selected!");
   }
@@ -162,22 +154,16 @@ function Address() {
         <h2 className="mb-4">My Addresses</h2>
 
         <div className="row">
-
           {/* Address Form */}
           <div className="col-md-5">
             <div className="card p-4">
               <h5 className="mb-3">
-                {editingId
-                  ? "Update Address"
-                  : "Add New Address"}
+                {editingId ? "Update Address" : "Add New Address"}
               </h5>
 
               <form onSubmit={handleSubmit}>
-
                 <div className="mb-3">
-                  <label className="form-label">
-                    Name
-                  </label>
+                  <label className="form-label">Name</label>
 
                   <input
                     type="text"
@@ -189,23 +175,21 @@ function Address() {
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label">
-                    Phone
-                  </label>
+                  <label className="form-label">Phone</label>
 
                   <input
                     type="tel"
                     name="phone"
                     className="form-control"
+                    maxLength={10}
+                    inputMode="numeric"
                     value={formData.phone}
                     onChange={handleChange}
                   />
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label">
-                    Address
-                  </label>
+                  <label className="form-label">Address</label>
 
                   <textarea
                     name="address"
@@ -216,9 +200,7 @@ function Address() {
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label">
-                    City
-                  </label>
+                  <label className="form-label">City</label>
 
                   <input
                     type="text"
@@ -230,9 +212,7 @@ function Address() {
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label">
-                    State
-                  </label>
+                  <label className="form-label">State</label>
 
                   <input
                     type="text"
@@ -244,26 +224,21 @@ function Address() {
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label">
-                    Pincode
-                  </label>
+                  <label className="form-label">Pincode</label>
 
                   <input
                     type="text"
                     name="pincode"
                     className="form-control"
+                    maxLength={6}
+                    inputMode="numeric"
                     value={formData.pincode}
                     onChange={handleChange}
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className="btn btn-primary w-100"
-                >
-                  {editingId
-                    ? "Update Address"
-                    : "Add Address"}
+                <button type="submit" className="btn btn-primary w-100">
+                  {editingId ? "Update Address" : "Add Address"}
                 </button>
 
                 {editingId && (
@@ -292,9 +267,7 @@ function Address() {
 
           {/* Address List */}
           <div className="col-md-7">
-            <h5 className="mb-3">
-              Saved Addresses
-            </h5>
+            <h5 className="mb-3">Saved Addresses</h5>
 
             {addresses.length === 0 ? (
               <p>No addresses added yet.</p>
@@ -302,9 +275,7 @@ function Address() {
               addresses.map((address) => (
                 <div
                   className={`card p-3 mb-3 ${
-                    address.selected
-                      ? "border-primary"
-                      : ""
+                    address.selected ? "border-primary" : ""
                   }`}
                   key={address.id}
                 >
@@ -314,9 +285,7 @@ function Address() {
                       name="deliveryAddress"
                       className="form-check-input"
                       checked={address.selected}
-                      onChange={() =>
-                        selectAddress(address.id)
-                      }
+                      onChange={() => selectAddress(address.id)}
                     />
 
                     <label className="form-check-label">
@@ -324,34 +293,25 @@ function Address() {
                     </label>
                   </div>
 
-                  <p className="mt-2 mb-1">
-                    {address.address}
-                  </p>
+                  <p className="mt-2 mb-1">{address.address}</p>
 
                   <p className="mb-1">
-                    {address.city}, {address.state} -{" "}
-                    {address.pincode}
+                    {address.city}, {address.state} - {address.pincode}
                   </p>
 
-                  <p className="mb-3">
-                    Phone: {address.phone}
-                  </p>
+                  <p className="mb-3">Phone: {address.phone}</p>
 
                   <div>
                     <button
                       className="btn btn-outline-primary me-2"
-                      onClick={() =>
-                        editAddress(address)
-                      }
+                      onClick={() => editAddress(address)}
                     >
                       Edit
                     </button>
 
                     <button
                       className="btn btn-outline-danger"
-                      onClick={() =>
-                        deleteAddress(address.id)
-                      }
+                      onClick={() => deleteAddress(address.id)}
                     >
                       Delete
                     </button>
@@ -365,10 +325,7 @@ function Address() {
 
       <Footer />
 
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-      />
+      <ToastContainer position="top-right" autoClose={2000} />
     </>
   );
 }
