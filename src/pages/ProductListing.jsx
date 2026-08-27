@@ -91,7 +91,7 @@ function ProductListing() {
       searchTerm.trim() === "" ||
       product.productName.toLowerCase().includes(searchTerm.toLowerCase());
 
-    return categoryMatch && ratingMatch;
+    return categoryMatch && ratingMatch && searchMatch;
   });
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
