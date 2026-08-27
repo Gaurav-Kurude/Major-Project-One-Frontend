@@ -346,7 +346,7 @@ function ProductListing() {
                   <div className="row g-4">
                     {sortedProducts.map((product) => (
                       <div className="col-md-4" key={product._id}>
-                        <div className="card h-100 d-flex flex-column">
+                        <div className="card h-100 product-card">
                           <Link
                             to={`/products/${product._id}`}
                             className="text-decoration-none text-black"
@@ -383,19 +383,21 @@ function ProductListing() {
 
                             <p className="mb-3">⭐ {product.productRating}</p>
 
-                            <button
-                              className="btn btn-primary w-100 mb-2 mt-auto"
-                              onClick={() => addToCart(product)}
-                            >
-                              Add to Cart
-                            </button>
+                            <div className="product-actions">
+                              <button
+                                className="btn btn-primary w-100 mb-2"
+                                onClick={() => addToCart(product)}
+                              >
+                                Add to Cart
+                              </button>
 
-                            <button
-                              className="btn btn-outline-secondary w-100"
-                              onClick={() => addToWishlist(product)}
-                            >
-                              ♡ Add to Wishlist
-                            </button>
+                              <button
+                                className="btn btn-outline-secondary w-100"
+                                onClick={() => addToWishlist(product)}
+                              >
+                                ♡ Add to Wishlist
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>

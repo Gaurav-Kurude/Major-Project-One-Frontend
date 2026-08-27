@@ -77,7 +77,7 @@ function Wishlist() {
               <div className="row g-4">
                 {wishlist.map((product) => (
                   <div className="col-md-4" key={product._id}>
-                    <div className="card h-100">
+                    <div className="card h-100 product-card">
                       <img
                         src={product.productImage}
                         className="card-img-top"
@@ -91,19 +91,15 @@ function Wishlist() {
 
                         <p>⭐ {product.productRating}</p>
 
-                        <button
-                          className="btn btn-primary w-100 mb-2"
-                          onClick={() => addToCart(product)}
-                        >
-                          Add to Cart
-                        </button>
+                        <div className="product-actions">
+                          <button className="btn btn-primary w-100 mb-2">
+                            Add to Cart
+                          </button>
 
-                        <button
-                          className="btn btn-outline-danger w-100"
-                          onClick={() => removeFromWishlist(product._id)}
-                        >
-                          Remove from Wishlist
-                        </button>
+                          <button className="btn btn-outline-danger w-100">
+                            Remove
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
