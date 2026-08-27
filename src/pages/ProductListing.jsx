@@ -87,6 +87,10 @@ function ProductListing() {
 
     const ratingMatch = product.productRating >= rating;
 
+    const searchMatch =
+      searchTerm.trim() === "" ||
+      product.productName.toLowerCase().includes(searchTerm.toLowerCase());
+
     return categoryMatch && ratingMatch;
   });
 
