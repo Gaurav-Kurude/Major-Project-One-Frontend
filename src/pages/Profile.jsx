@@ -58,14 +58,9 @@ function Profile() {
             <div className="card p-4 mt-4">
               <h4 className="mb-3">Order History</h4>
 
-              <button>
-                <Link
-                  to="/orders"
-                  className="btn btn-outline-primary"
-                >
-                  View Order History
-                </Link>
-              </button>
+              <Link to="/orders" className="btn btn-outline-primary">
+                View Order History
+              </Link>
             </div>
           </div>
         </main>
