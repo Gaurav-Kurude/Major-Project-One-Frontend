@@ -3,13 +3,11 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
 
 function Checkout() {
   const [cart, setCart] = useState([]);
   const [address, setAddress] = useState(null);
   const [orderPlaced, setOrderPlaced] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -101,13 +99,15 @@ function Checkout() {
       // Clear cart
       localStorage.removeItem("cart");
 
+      setCart([]);
+
       // Update cart count
       window.dispatchEvent(new Event("cartUpdated"));
 
+      setOrderPlaced(true);
+
       toast.success("Order Placed Successfully!");
 
-      // Go to Order History
-      navigate("/orders");
     } catch (error) {
       console.log(error);
 
