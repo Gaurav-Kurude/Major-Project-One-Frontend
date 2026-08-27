@@ -47,11 +47,11 @@ function ProductListing() {
         }
 
         const data = await response.json();
-        // console.log(data);
+        console.log(data);
         setProducts(data);
 
-        // console.log("API data:", data);
-        // console.log("Is Array:", Array.isArray(data));
+        console.log("API data:", data);
+        console.log("Is Array:", Array.isArray(data));
       } catch (error) {
         console.log(error);
       } finally {
