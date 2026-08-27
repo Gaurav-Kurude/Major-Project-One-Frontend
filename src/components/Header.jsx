@@ -35,32 +35,25 @@ function Header() {
   }, []);
 
   useEffect(() => {
-  function updateCartCount() {
-    const cart =
-      JSON.parse(localStorage.getItem("cart")) || [];
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    const totalQuantity = cart.reduce(
-      (total, item) => total + (item.quantity || 1),
-      0
-    );
+      const totalQuantity = cart.reduce(
+        (total, item) => total + (item.quantity || 1),
+        0,
+      );
 
-    setCartCount(totalQuantity);
-  }
+      setCartCount(totalQuantity);
+    }
 
-  updateCartCount();
+    updateCartCount();
 
-  window.addEventListener(
-    "cartUpdated",
-    updateCartCount
-  );
+    window.addEventListener("cartUpdated", updateCartCount);
 
-  return () => {
-    window.removeEventListener(
-      "cartUpdated",
-      updateCartCount
-    );
-  };
-}, []);
+    return () => {
+      window.removeEventListener("cartUpdated", updateCartCount);
+    };
+  }, []);
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -99,7 +92,13 @@ function Header() {
             to="/wishlist"
             className="text-decoration-none position-relative fs-4"
           >
-            <img src="/heart.png" alt="heart" width="32" height="32" className="me-2" />
+            <img
+              src="/heart.png"
+              alt="heart"
+              width="32"
+              height="32"
+              className="me-2"
+            />
             {wishlistCount > 0 && (
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {wishlistCount}
@@ -111,12 +110,31 @@ function Header() {
             to="/cart"
             className="text-decoration-none position-relative fs-4"
           >
-            <img src="/cart.png" alt="cart" width="32" height="32" className="me-2" />
+            <img
+              src="/cart.png"
+              alt="cart"
+              width="32"
+              height="32"
+              className="me-2"
+            />
             {cartCount > 0 && (
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {cartCount}
               </span>
             )}
+          </Link>
+          
+          <Link
+            to="/profile"
+            className="text-decoration-none position-relative fs-4"
+          >
+            <img
+              src="/user.png"
+              alt="Profile"
+              width="32"
+              height="32"
+              className="me-2"
+            />
           </Link>
         </div>
       </div>
