@@ -3,10 +3,11 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function ProductDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -142,6 +143,12 @@ function ProductDetails() {
         <Header />
         <main className="flex-grow-1">
           <div className="container mt-4">
+            <button
+              className="btn btn-outline-secondary mb-3"
+              onClick={() => navigate(-1)}
+            >
+              ← Back
+            </button>
             <div className="row">
               <div className="col-md-6">
                 <img
