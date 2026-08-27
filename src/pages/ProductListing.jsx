@@ -346,19 +346,19 @@ function ProductListing() {
                   <div className="row g-4">
                     {sortedProducts.map((product) => (
                       <div className="col-md-4" key={product._id}>
-                        <div className="card h-100">
+                        <div className="card h-100 d-flex flex-column">
                           <Link
                             to={`/products/${product._id}`}
                             className="text-decoration-none text-black"
                           >
                             <img
                               src={product.productImage}
-                              className="card-img-top"
+                              className="card-img-top product-image"
                               alt={product.productName}
                             />
                           </Link>
 
-                          <div className="card-body">
+                          <div className="card-body d-flex flex-column">
                             <h5 className="card-title">
                               {product.productName}
                             </h5>
@@ -384,7 +384,7 @@ function ProductListing() {
                             <p className="mb-3">⭐ {product.productRating}</p>
 
                             <button
-                              className="btn btn-primary w-100 mb-2"
+                              className="btn btn-primary w-100 mb-2 mt-auto"
                               onClick={() => addToCart(product)}
                             >
                               Add to Cart
