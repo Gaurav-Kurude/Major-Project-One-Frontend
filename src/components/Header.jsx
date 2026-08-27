@@ -20,7 +20,8 @@ function Header() {
 
   useEffect(() => {
     function updateWishlistCount() {
-      const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      const wishlist =
+        JSON.parse(localStorage.getItem("wishlist")) || [];
 
       setWishlistCount(wishlist.length);
     }
@@ -30,17 +31,21 @@ function Header() {
     window.addEventListener("wishlistUpdated", updateWishlistCount);
 
     return () => {
-      window.removeEventListener("wishlistUpdated", updateWishlistCount);
+      window.removeEventListener(
+        "wishlistUpdated",
+        updateWishlistCount
+      );
     };
   }, []);
 
   useEffect(() => {
     function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cart =
+        JSON.parse(localStorage.getItem("cart")) || [];
 
       const totalQuantity = cart.reduce(
         (total, item) => total + (item.quantity || 1),
-        0,
+        0
       );
 
       setCartCount(totalQuantity);
@@ -58,7 +63,12 @@ function Header() {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container">
-        <Link to="/" className="navbar-brand d-flex align-items-center">
+
+        {/* Logo */}
+        <Link
+          to="/"
+          className="navbar-brand d-flex align-items-center"
+        >
           <img
             src="/shopping-bags.png"
             alt="Shopping bag"
@@ -69,73 +79,102 @@ function Header() {
           MyCart
         </Link>
 
-        <form
-          className="d-flex mx-auto search-bar"
-          role="search"
-          onSubmit={handleSearch}
+        {/* Mobile Toggle Button */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+          aria-controls="navbarContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-          <input
-            className="form-control me-2"
-            type="search"
-            placeholder="Search products..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-          <button className="btn btn-primary" type="submit">
-            Search
-          </button>
-        </form>
+        {/* Navbar Content */}
+        <div
+          className="collapse navbar-collapse"
+          id="navbarContent"
+        >
 
-        <div className="d-flex align-items-center gap-3">
-          <Link
-            to="/wishlist"
-            className="text-decoration-none position-relative fs-4"
+          {/* Search */}
+          <form
+            className="d-flex mx-lg-auto my-3 my-lg-0 search-bar"
+            role="search"
+            onSubmit={handleSearch}
           >
-            <img
-              src="/heart.png"
-              alt="heart"
-              width="32"
-              height="32"
-              className="me-2"
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Search products..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
-            {wishlistCount > 0 && (
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {wishlistCount}
-              </span>
-            )}
-          </Link>
 
-          <Link
-            to="/cart"
-            className="text-decoration-none position-relative fs-4"
-          >
-            <img
-              src="/cart.png"
-              alt="cart"
-              width="32"
-              height="32"
-              className="me-2"
-            />
-            {cartCount > 0 && (
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {cartCount}
-              </span>
-            )}
-          </Link>
-          
-          <Link
-            to="/profile"
-            className="text-decoration-none position-relative fs-4"
-          >
-            <img
-              src="/user.png"
-              alt="Profile"
-              width="32"
-              height="32"
-              className="me-2"
-            />
-          </Link>
+            <button
+              className="btn btn-primary"
+              type="submit"
+            >
+              Search
+            </button>
+          </form>
+
+          {/* Wishlist + Cart */}
+          <div className="d-flex align-items-center gap-3">
+
+            {/* Wishlist */}
+            <Link
+              to="/wishlist"
+              className="text-decoration-none position-relative"
+            >
+              <img
+                src="/heart.png"
+                alt="Wishlist"
+                width="32"
+                height="32"
+              />
+
+              {wishlistCount > 0 && (
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {wishlistCount}
+                </span>
+              )}
+            </Link>
+
+            {/* Cart */}
+            <Link
+              to="/cart"
+              className="text-decoration-none position-relative"
+            >
+              <img
+                src="/cart.png"
+                alt="Cart"
+                width="32"
+                height="32"
+              />
+
+              {cartCount > 0 && (
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+
+            {/* Profile */}
+            <Link
+              to="/profile"
+              className="text-decoration-none"
+            >
+              <img
+                src="/user.png"
+                alt="Profile"
+                width="32"
+                height="32"
+              />
+            </Link>
+
+          </div>
         </div>
       </div>
     </nav>
