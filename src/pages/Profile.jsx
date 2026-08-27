@@ -1,8 +1,10 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Profile() {
+  const navigate = useNavigate();
+
   const user = {
     name: "Gaurav Kurude",
     email: "gaurav@example.com",
@@ -41,9 +43,13 @@ function Profile() {
               {/* Address */}
               <div className="col-md-6">
                 <div className="card p-4">
-                  <Link to="/address" className="text-decoration-none">
-                    Address
-                  </Link>
+                  <button
+                    type="button"
+                    className="btn btn-outline-primary"
+                    onClick={() => navigate("/address")}
+                  >
+                    Manage Address
+                  </button>
                 </div>
               </div>
             </div>
