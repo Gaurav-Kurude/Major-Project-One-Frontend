@@ -3,32 +3,41 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 function Checkout() {
   const [cart, setCart] = useState([]);
   const [address, setAddress] = useState(null);
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const savedCart =
-      JSON.parse(localStorage.getItem("cart")) || [];
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    const savedAddresses =
-      JSON.parse(localStorage.getItem("addresses")) || [];
+    const savedAddresses = JSON.parse(localStorage.getItem("addresses")) || [];
 
     const selectedAddress = savedAddresses.find(
-      (address) => address.selected === true
+      (address) => address.selected === true,
     );
 
     setCart(savedCart);
     setAddress(selectedAddress);
   }, []);
 
-  const totalPrice = cart.reduce(
-    (total, product) =>
-      total + product.productPrice * product.quantity,
-    0
-  );
+  function calculateFinalPrice(originalPrice, discountPercentage) {
+    const discountAmount = (originalPrice * discountPercentage) / 100;
+
+    return originalPrice - discountAmount;
+  }
+
+  const totalPrice = cart.reduce((total, product) => {
+    const finalPrice = calculateFinalPrice(
+      product.productPriceBeforeDiscount,
+      product.productDiscount,
+    );
+
+    return total + finalPrice * product.quantity;
+  }, 0);
 
   async function placeOrder() {
     if (!address) {
@@ -46,7 +55,15 @@ function Checkout() {
       products: cart.map((product) => ({
         productId: product._id,
         productName: product.productName,
-        productPrice: product.productPrice,
+
+        productPrice: calculateFinalPrice(
+          product.productPriceBeforeDiscount,
+          product.productDiscount,
+        ),
+
+        originalPrice: product.productPriceBeforeDiscount,
+        discount: product.productDiscount,
+
         quantity: product.quantity,
       })),
 
@@ -64,40 +81,33 @@ function Checkout() {
 
     try {
       // 2. Send order to your backend
-      const response = await fetch(
-        "http://localhost:5000/orders",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(orderData),
-        }
-      );
+      const response = await fetch("http://localhost:5000/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
 
       // 3. Get backend response
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          data.error || "Failed to place order"
-        );
+        throw new Error(data.error || "Failed to place order");
       }
 
       console.log("Order saved:", data);
 
-      // 4. Clear cart after successful order
+      // Clear cart
       localStorage.removeItem("cart");
 
-      // 5. Update navbar cart count
-      window.dispatchEvent(
-        new Event("cartUpdated")
-      );
-
-      // 6. Show success message
-      setOrderPlaced(true);
+      // Update cart count
+      window.dispatchEvent(new Event("cartUpdated"));
 
       toast.success("Order Placed Successfully!");
+
+      // Go to Order History
+      navigate("/orders");
     } catch (error) {
       console.log(error);
 
@@ -122,20 +132,24 @@ function Checkout() {
               className="d-flex justify-content-between border-bottom py-2"
             >
               <div>
-                <p className="mb-1">
-                  {product.productName}
-                </p>
+                <p className="mb-1">{product.productName}</p>
 
                 <small>
-                  ₹{product.productPrice} ×{" "}
-                  {product.quantity}
+                  ₹
+                  {calculateFinalPrice(
+                    product.productPriceBeforeDiscount,
+                    product.productDiscount,
+                  )}{" "}
+                  × {product.quantity}
                 </small>
               </div>
 
               <strong>
                 ₹
-                {product.productPrice *
-                  product.quantity}
+                {calculateFinalPrice(
+                  product.productPriceBeforeDiscount,
+                  product.productDiscount,
+                ) * product.quantity}
               </strong>
             </div>
           ))}
@@ -154,29 +168,19 @@ function Checkout() {
             <>
               <strong>{address.name}</strong>
 
-              <p className="mb-1">
-                {address.address}
-              </p>
+              <p className="mb-1">{address.address}</p>
 
               <p className="mb-1">
-                {address.city}, {address.state} -{" "}
-                {address.pincode}
+                {address.city}, {address.state} - {address.pincode}
               </p>
 
-              <p>
-                Phone: {address.phone}
-              </p>
+              <p>Phone: {address.phone}</p>
             </>
           ) : (
-            <p className="text-danger">
-              Please select a delivery address.
-            </p>
+            <p className="text-danger">Please select a delivery address.</p>
           )}
 
-          <button
-            className="btn btn-primary"
-            onClick={placeOrder}
-          >
+          <button className="btn btn-primary" onClick={placeOrder}>
             Place Order
           </button>
         </div>
@@ -191,10 +195,7 @@ function Checkout() {
 
       <Footer />
 
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-      />
+      <ToastContainer position="top-right" autoClose={2000} />
     </>
   );
 }

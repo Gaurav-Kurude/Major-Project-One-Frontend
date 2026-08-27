@@ -10,7 +10,7 @@ function OrderHistory() {
     async function fetchOrders() {
       try {
         const response = await fetch(
-          "https://major-project-one-brown.vercel.app//orders",
+          "https://major-project-one-brown.vercel.app/orders",
         );
 
         if (!response.ok) {
