@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Checkout() {
+
+  const navigate = useNavigate();
+
   const [cart, setCart] = useState([]);
   const [address, setAddress] = useState(null);
-  const [orderPlaced, setOrderPlaced] = useState(false);
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -79,13 +82,16 @@ function Checkout() {
 
     try {
       // 2. Send order to your backend
-      const response = await fetch("https://major-project-one-brown.vercel.app/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "https://major-project-one-brown.vercel.app/orders",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderData),
         },
-        body: JSON.stringify(orderData),
-      });
+      );
 
       // 3. Get backend response
       const data = await response.json();
@@ -104,10 +110,9 @@ function Checkout() {
       // Update cart count
       window.dispatchEvent(new Event("cartUpdated"));
 
-      setOrderPlaced(true);
+      navigate("/order-confirmation");
 
       toast.success("Order Placed Successfully!");
-
     } catch (error) {
       console.log(error);
 
@@ -186,11 +191,6 @@ function Checkout() {
         </div>
 
         {/* Success message */}
-        {orderPlaced && (
-          <div className="alert alert-success mt-3">
-            Order Placed Successfully!
-          </div>
-        )}
       </main>
 
       <Footer />

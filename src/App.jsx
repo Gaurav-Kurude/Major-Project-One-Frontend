@@ -10,6 +10,7 @@ import Address from "./pages/Address";
 import Checkout from "./pages/Checkout";
 import Profile from "./pages/Profile";
 import OrderHistory from "./pages/OrderHistory";
+import OrderConfirmation from "./pages/OrderConfirmation";
 import "./App.css";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/orders" element={<OrderHistory />} />
+      <Route path="/order-confirmation" element={<OrderConfirmation />} />
     </Routes>
   );
 }
