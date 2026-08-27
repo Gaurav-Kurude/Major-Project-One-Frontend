@@ -6,7 +6,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Checkout() {
-
   const navigate = useNavigate();
 
   const [cart, setCart] = useState([]);
@@ -31,14 +30,16 @@ function Checkout() {
     return originalPrice - discountAmount;
   }
 
-  const totalPrice = cart.reduce((total, product) => {
-    const finalPrice = calculateFinalPrice(
-      product.productPriceBeforeDiscount,
-      product.productDiscount,
-    );
+  const totalPrice = cart
+    .reduce((total, product) => {
+      const finalPrice = calculateFinalPrice(
+        product.productPriceBeforeDiscount,
+        product.productDiscount,
+      );
 
-    return total + finalPrice * product.quantity;
-  }, 0);
+      return total + finalPrice * product.quantity;
+    }, 0)
+    .toFixed(2);
 
   async function placeOrder() {
     if (!address) {
@@ -144,24 +145,26 @@ function Checkout() {
                   {calculateFinalPrice(
                     product.productPriceBeforeDiscount,
                     product.productDiscount,
-                  )}{" "}
+                  ).toFixed(2)}{" "}
                   × {product.quantity}
                 </small>
               </div>
 
               <strong>
                 ₹
-                {calculateFinalPrice(
-                  product.productPriceBeforeDiscount,
-                  product.productDiscount,
-                ) * product.quantity}
+                {(
+                  calculateFinalPrice(
+                    product.productPriceBeforeDiscount,
+                    product.productDiscount,
+                  ) * product.quantity
+                ).toFixed(2)}
               </strong>
             </div>
           ))}
 
           <div className="d-flex justify-content-between mt-3">
             <h5>Total</h5>
-            <h5>₹{totalPrice}</h5>
+            <h5>₹{totalPrice.toFixed(2)}</h5>
           </div>
         </div>
 
