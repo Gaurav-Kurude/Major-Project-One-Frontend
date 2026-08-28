@@ -38,8 +38,7 @@ function Checkout() {
       );
 
       return total + finalPrice * product.quantity;
-    }, 0)
-    .toFixed(2);
+    }, 0);
 
   async function placeOrder() {
     if (!address) {
@@ -113,7 +112,6 @@ function Checkout() {
 
       navigate("/order-confirmation");
 
-      toast.success("Order Placed Successfully!");
     } catch (error) {
       console.log(error);
 
