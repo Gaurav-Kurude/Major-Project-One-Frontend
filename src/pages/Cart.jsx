@@ -28,6 +28,8 @@ function Cart() {
     setCart(updatedCart);
 
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    window.dispatchEvent(new Event("cartUpdated"));
   }
 
   // Decrease quantity
@@ -46,6 +48,8 @@ function Cart() {
     setCart(updatedCart);
 
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    window.dispatchEvent(new Event("cartUpdated"));
   }
 
   // Remove product
@@ -125,7 +129,7 @@ function Cart() {
                         <div className="col-md-4">
                           <img
                             src={product.productImage}
-                            className="img-fluid rounded-start"
+                            className="img-fluid rounded-start cart-product-image"
                             alt={product.productName}
                           />
                         </div>
@@ -142,7 +146,7 @@ function Cart() {
                                 {calculateFinalPrice(
                                   product.productPriceBeforeDiscount,
                                   product.productDiscount,
-                                )}
+                                ).toFixed(2)}
                               </h6>
 
                               <small className="text-decoration-line-through text-black-50">
@@ -212,7 +216,7 @@ function Cart() {
 
                     <div className="d-flex justify-content-between mt-2">
                       <span>Total Price</span>
-                      <strong>₹{totalPrice}</strong>
+                      <strong>₹{totalPrice.toFixed(2)}</strong>
                     </div>
 
                     <hr />

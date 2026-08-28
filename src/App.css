@@ -209,3 +209,9 @@
 .product-card .product-actions {
   margin-top: auto;
 }
+
+.cart-product-image {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+}
