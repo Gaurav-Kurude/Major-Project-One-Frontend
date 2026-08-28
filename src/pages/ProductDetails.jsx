@@ -154,7 +154,7 @@ function ProductDetails() {
                 <img
                   src={product.productImage}
                   alt={product.productName}
-                  className="img-fluid"
+                  className="product-details-image"
                 />
               </div>
 
