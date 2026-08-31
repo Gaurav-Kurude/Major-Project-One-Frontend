@@ -105,7 +105,7 @@ function Header() {
           </form>
 
           {/* Wishlist + Cart */}
-          <div className="d-flex align-items-center gap-3">
+          <div className="d-flex align-items-center gap-3 mt-3 mt-lg-0">
             {/* Wishlist */}
             <Link
               to="/wishlist"
