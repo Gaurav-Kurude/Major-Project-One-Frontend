@@ -30,15 +30,14 @@ function Checkout() {
     return originalPrice - discountAmount;
   }
 
-  const totalPrice = cart
-    .reduce((total, product) => {
-      const finalPrice = calculateFinalPrice(
-        product.productPriceBeforeDiscount,
-        product.productDiscount,
-      );
+  const totalPrice = cart.reduce((total, product) => {
+    const finalPrice = calculateFinalPrice(
+      product.productPriceBeforeDiscount,
+      product.productDiscount,
+    );
 
-      return total + finalPrice * product.quantity;
-    }, 0);
+    return total + finalPrice * product.quantity;
+  }, 0);
 
   async function placeOrder() {
     if (!address) {
@@ -111,7 +110,6 @@ function Checkout() {
       window.dispatchEvent(new Event("cartUpdated"));
 
       navigate("/order-confirmation");
-
     } catch (error) {
       console.log(error);
 
@@ -168,7 +166,17 @@ function Checkout() {
 
         {/* Address */}
         <div className="card p-4 mt-3">
-          <h4>Delivery Address</h4>
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            
+            <h4 className="mb-0">Delivery Address</h4>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => navigate("/address")}
+            >
+              Add Address
+            </button>
+          </div>
 
           {address ? (
             <>
