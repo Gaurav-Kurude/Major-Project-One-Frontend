@@ -20,8 +20,7 @@ function Header() {
 
   useEffect(() => {
     function updateWishlistCount() {
-      const wishlist =
-        JSON.parse(localStorage.getItem("wishlist")) || [];
+      const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
       setWishlistCount(wishlist.length);
     }
@@ -31,21 +30,17 @@ function Header() {
     window.addEventListener("wishlistUpdated", updateWishlistCount);
 
     return () => {
-      window.removeEventListener(
-        "wishlistUpdated",
-        updateWishlistCount
-      );
+      window.removeEventListener("wishlistUpdated", updateWishlistCount);
     };
   }, []);
 
   useEffect(() => {
     function updateCartCount() {
-      const cart =
-        JSON.parse(localStorage.getItem("cart")) || [];
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
       const totalQuantity = cart.reduce(
         (total, item) => total + (item.quantity || 1),
-        0
+        0,
       );
 
       setCartCount(totalQuantity);
@@ -63,12 +58,8 @@ function Header() {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container">
-
         {/* Logo */}
-        <Link
-          to="/"
-          className="navbar-brand d-flex align-items-center"
-        >
+        <Link to="/" className="navbar-brand d-flex align-items-center">
           <img
             src="/shopping-bags.png"
             alt="Shopping bag"
@@ -93,14 +84,10 @@ function Header() {
         </button>
 
         {/* Navbar Content */}
-        <div
-          className="collapse navbar-collapse"
-          id="navbarContent"
-        >
-
+        <div className="collapse navbar-collapse" id="navbarContent">
           {/* Search */}
           <form
-            className="d-flex mx-lg-auto my-3 my-lg-0 search-bar"
+            className="d-flex mx-lg-auto my-3 my-lg-0 search-bar w-100"
             role="search"
             onSubmit={handleSearch}
           >
@@ -112,28 +99,19 @@ function Header() {
               onChange={(e) => setSearch(e.target.value)}
             />
 
-            <button
-              className="btn btn-primary"
-              type="submit"
-            >
+            <button className="btn btn-primary flex-shrink-0" type="submit">
               Search
             </button>
           </form>
 
           {/* Wishlist + Cart */}
           <div className="d-flex align-items-center gap-3">
-
             {/* Wishlist */}
             <Link
               to="/wishlist"
               className="text-decoration-none position-relative"
             >
-              <img
-                src="/heart.png"
-                alt="Wishlist"
-                width="32"
-                height="32"
-              />
+              <img src="/heart.png" alt="Wishlist" width="32" height="32" />
 
               {wishlistCount > 0 && (
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -143,16 +121,8 @@ function Header() {
             </Link>
 
             {/* Cart */}
-            <Link
-              to="/cart"
-              className="text-decoration-none position-relative"
-            >
-              <img
-                src="/cart.png"
-                alt="Cart"
-                width="32"
-                height="32"
-              />
+            <Link to="/cart" className="text-decoration-none position-relative">
+              <img src="/cart.png" alt="Cart" width="32" height="32" />
 
               {cartCount > 0 && (
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -162,18 +132,9 @@ function Header() {
             </Link>
 
             {/* Profile */}
-            <Link
-              to="/profile"
-              className="text-decoration-none"
-            >
-              <img
-                src="/user.png"
-                alt="Profile"
-                width="32"
-                height="32"
-              />
+            <Link to="/profile" className="text-decoration-none">
+              <img src="/user.png" alt="Profile" width="32" height="32" />
             </Link>
-
           </div>
         </div>
       </div>
