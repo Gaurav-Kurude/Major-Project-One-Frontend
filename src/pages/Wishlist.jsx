@@ -60,8 +60,6 @@ function Wishlist() {
     }
 
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-
-    window.dispatchEvent(new Event("cartUpdated"));
   }
 
   return (
