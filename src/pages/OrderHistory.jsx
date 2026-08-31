@@ -109,7 +109,7 @@ function OrderHistory() {
 
                   <hr />
 
-                  <h5 className="text-end">Total: ₹{order.totalPrice}</h5>
+                  <h5 className="text-end">Total: ₹{order.totalPrice.toFixed(2)}</h5>
                 </div>
               ))
             )}
