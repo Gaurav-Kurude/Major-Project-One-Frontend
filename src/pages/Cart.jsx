@@ -30,6 +30,8 @@ function Cart() {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
 
     window.dispatchEvent(new Event("cartUpdated"));
+
+    toast.success("Quantity increased!");
   }
 
   // Decrease quantity
@@ -50,6 +52,8 @@ function Cart() {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
 
     window.dispatchEvent(new Event("cartUpdated"));
+
+    toast.info("Quantity decreased!");
   }
 
   // Remove product
