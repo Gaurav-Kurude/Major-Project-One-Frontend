@@ -109,7 +109,7 @@ function Header() {
             {/* Wishlist */}
             <Link
               to="/wishlist"
-              className="text-decoration-none position-relative"
+              className="text-decoration-none position-relative ml-2"
             >
               <img src="/heart.png" alt="Wishlist" width="32" height="32" />
 
