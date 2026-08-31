@@ -39,12 +39,12 @@ function Address() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (phone.length !== 10) {
+    if (formData.phone.length !== 10) {
       toast.error("Phone number must be 10 digits");
       return;
     }
 
-    if (pincode.length !== 6) {
+    if (formData.pincode.length !== 6) {
       toast.error("Pincode must be 6 digits");
       return;
     }
@@ -61,7 +61,7 @@ function Address() {
       return;
     }
 
-    if (editingId) {
+    if (editingId !== null) {
       // Update address
       const updatedAddresses = addresses.map((address) =>
         address.id === editingId
