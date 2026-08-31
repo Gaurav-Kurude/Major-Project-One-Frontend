@@ -60,6 +60,8 @@ function Wishlist() {
     }
 
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    window.dispatchEvent(new Event("cartUpdated"));
   }
 
   return (
@@ -92,7 +94,7 @@ function Wishlist() {
                         <p>⭐ {product.productRating}</p>
 
                         <div className="product-actions">
-                          <button onClick={addToCart} className="btn btn-primary w-100 mb-2">
+                          <button onClick={addToCart(product)} className="btn btn-primary w-100 mb-2">
                             Add to Cart
                           </button>
 
