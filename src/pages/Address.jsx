@@ -28,11 +28,17 @@ function Address() {
   // Handle input
   function handleChange(e) {
     const { name, value } = e.target;
-
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    if (name === "phone") {
+      const onlyNumbers = value.replace(/\D/g, "");
+      setFormData({ ...formData, phone: onlyNumbers.slice(0, 10) });
+      return;
+    }
+    if (name === "pincode") {
+      const onlyNumbers = value.replace(/\D/g, "");
+      setFormData({ ...formData, pincode: onlyNumbers.slice(0, 6) });
+      return;
+    }
+    setFormData({ ...formData, [name]: value });
   }
 
   // Add / Update address
