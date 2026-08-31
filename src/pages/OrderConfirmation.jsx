@@ -10,16 +10,14 @@ function OrderConfirmation() {
       <main className="flex-grow-1">
         <div className="container text-center mt-5">
           <div className="card p-5">
-            <h2 className="text-success mb-3">
-              ✓ Order Placed Successfully!
-            </h2>
+            <h2 className="text-success mb-3">✓ Order Placed Successfully!</h2>
 
             <p className="mb-4">
               Thank you for your order. Your order has been placed successfully.
             </p>
 
-            <div>
-              <Link to="/orders" className="btn btn-primary me-2">
+            <div className="d-flex flex-column flex-sm-row justify-content-center gap-3">
+              <Link to="/orders" className="btn btn-primary">
                 View Order History
               </Link>
 
