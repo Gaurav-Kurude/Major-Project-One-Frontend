@@ -92,7 +92,7 @@ Create a new product order<br>
 Sample Response:<br>
 ```
 { "address": {
-      "name": "Onkar Gayake",
+      "name": "John Doe",
       "phone": "94200*****",
     },...} 
 ```
@@ -102,7 +102,7 @@ Get a products order<br>
 Sample Response:<br>
 ```
 [{ "address": {
-      "name": "Onkar Gayake",
+      "name": "John Doe",
       "phone": "94200*****",
     },...} ...]
 ```
@@ -112,7 +112,7 @@ Delete a specific product order<br>
 Sample Response:<br>
 ```
 { "address": {
-      "name": "Onkar Gayake",
+      "name": "John Doe",
       "phone": "94200*****",
     },...} 
 ```
