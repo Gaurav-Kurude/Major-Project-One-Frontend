@@ -13,8 +13,8 @@ The application allows users to browse products, search and filter products, man
 ## Quick Start
 
 ```
-git clone https://github.com/Gaurav-Kurude/Major-Project-One-Frontend.git
-cd Major-Project-One-Frontend
+git clone https://github.com/Gaurav-Kurude/MyCart-eCommerce.git
+cd MyCart-eCommerce
 npm install
 npm run dev 
 ```
