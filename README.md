@@ -1,4 +1,4 @@
-# MyCart — eCommerce Web Application
+# MyCart — eCommerce 
 
 MyShoppingSite is a full-stack e-commerce web application built using React, React Router, Bootstrap, Node.js, Express.js, and MongoDB.
 The application allows users to browse products, search and filter products, manage their wishlist and cart, add delivery addresses, complete checkout, and view their orders and profile.
